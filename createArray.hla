@@ -1,0 +1,21 @@
+//createArray.hla: Create an array on the heap.
+program p;
+#include("stdlib.hhf");
+
+	procedure createArray; @noframe; @nodisplay;
+	begin createArray;
+		//ArraySize is passed in via EBX.
+		//ElementSize(Bytes) is passed in via ECX.
+		intmul( ECX, EBX ); //Size of element (in bytes) * ArraySize
+		mem.alloc( EBX );		
+		ret();
+	end createArray;
+begin p;
+	stdout.put("createArray.hla: Entrypoint.", nl);
+	
+	mov( 1, EBX );
+	mov( 4, ECX );
+	call createArray;
+
+	mem.free( EAX );
+end p;
